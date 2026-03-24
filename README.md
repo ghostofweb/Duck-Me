@@ -7,7 +7,7 @@ Since this extension is not on the Chrome Web Store, you can install it manually
 4. **Enable Developer Mode:** Toggle the **"Developer mode"** switch in the top right corner.
 5. **Load the Extension:** Click the **"Load unpacked"** button in the top left. Select the Zip file you downloaded, .
 
-That's it! Pin the extension to your toolbar and start taking sticky notes.
+That's it! Pin the extension to your toolbar and use it
 
 # 🦆 Duck Me
 
