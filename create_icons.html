@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+</head>
+<body>
+  <canvas id="canvas16" width="16" height="16"></canvas>
+  <canvas id="canvas48" width="48" height="48"></canvas>
+  <canvas id="canvas128" width="128" height="128"></canvas>
+  
+  <script>
+    function drawDuck(canvas, size) {
+      const ctx = canvas.getContext('2d');
+      const scale = size / 128;
+      
+      // Background
+      ctx.fillStyle = '#4da6ff';
+      ctx.fillRect(0, 0, size, size);
+      
+      // Duck body
+      ctx.fillStyle = '#FFD700';
+      ctx.beginPath();
+      ctx.arc(size * 0.5, size * 0.6, size * 0.25, 0, Math.PI * 2);
+      ctx.fill();
+      
+      // Duck head
+      ctx.beginPath();
+      ctx.arc(size * 0.5, size * 0.35, size * 0.18, 0, Math.PI * 2);
+      ctx.fill();
+      
+      // Beak
+      ctx.fillStyle = '#FF6B35';
+      ctx.beginPath();
+      ctx.moveTo(size * 0.65, size * 0.35);
+      ctx.lineTo(size * 0.75, size * 0.32);
+      ctx.lineTo(size * 0.75, size * 0.38);
+      ctx.closePath();
+      ctx.fill();
+      
+      // Eye
+      ctx.fillStyle = '#000';
+      ctx.beginPath();
+      ctx.arc(size * 0.55, size * 0.32, size * 0.03, 0, Math.PI * 2);
+      ctx.fill();
+      
+      // Sound wave
+      ctx.strokeStyle = '#fff';
+      ctx.lineWidth = size * 0.02;
+      ctx.beginPath();
+      ctx.arc(size * 0.15, size * 0.5, size * 0.08, -Math.PI/4, Math.PI/4);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(size * 0.15, size * 0.5, size * 0.12, -Math.PI/4, Math.PI/4);
+      ctx.stroke();
+    }
+    
+    drawDuck(document.getElementById('canvas16'), 16);
+    drawDuck(document.getElementById('canvas48'), 48);
+    drawDuck(document.getElementById('canvas128'), 128);
+    
+    // Save canvases
+    ['16', '48', '128'].forEach(size => {
+      const canvas = document.getElementById('canvas' + size);
+      const link = document.createElement('a');
+      link.download = 'icon' + size + '.png';
+      link.href = canvas.toDataURL();
+      link.click();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      width: 340px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: #0f172a;
+      color: #f8fafc;
+    }
+
+    /* Clean Header */
+    .header {
+      padding: 16px 20px;
+      border-bottom: 1px solid #1e293b;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .header h1 { font-size: 16px; font-weight: 600; color: #f8fafc; display: flex; align-items: center; gap: 8px;}
+    .header .status-dot { width: 8px; height: 8px; border-radius: 50%; background-color: #10b981; }
+    .header .status-dot.inactive { background-color: #64748b; }
+
+    .content { padding: 20px; }
+
+    /* Modern Card Container */
+    .card {
+      background-color: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    /* Toggle Switch */
+    .toggle-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    .toggle-row label { font-size: 14px; font-weight: 500; }
+    .switch { position: relative; display: inline-block; width: 44px; height: 24px; }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #475569; transition: .2s; border-radius: 24px; }
+    .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .2s; border-radius: 50%; }
+    input:checked + .slider { background-color: #3b82f6; }
+    input:checked + .slider:before { transform: translateX(20px); }
+
+    /* Target Tab Info */
+    .tab-info-header { font-size: 12px; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+    .tab-title { font-size: 14px; color: #f8fafc; margin-bottom: 12px; background: #0f172a; padding: 10px; border-radius: 6px; border: 1px solid #334155; word-break: break-all;}
+    .tab-title.empty { color: #64748b; font-style: italic; }
+
+    /* Single Slider */
+    .slider-row { margin-top: 16px; }
+    .slider-header { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 13px; font-weight: 500;}
+    .slider-header .value { color: #3b82f6; font-weight: 600; font-variant-numeric: tabular-nums; }
+    input[type="range"] { width: 100%; height: 4px; border-radius: 2px; background: #334155; outline: none; -webkit-appearance: none; cursor: pointer; }
+    input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: #3b82f6; border: 2px solid #fff; cursor: pointer; transition: transform 0.1s; }
+    input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.1); }
+
+    /* Primary & Secondary Buttons */
+    .btn-group { display: flex; gap: 8px; }
+    button {
+      flex: 1; padding: 10px; font-size: 13px; font-weight: 600; border-radius: 6px; cursor: pointer; transition: all 0.2s ease; border: none;
+    }
+    .btn-primary { background-color: #3b82f6; color: white; }
+    .btn-primary:hover { background-color: #2563eb; }
+    .btn-secondary { background-color: transparent; color: #f8fafc; border: 1px solid #475569; }
+    .btn-secondary:hover { background-color: #334155; }
+    .btn-icon { flex: 0 0 auto; width: 38px; background-color: transparent; border: 1px solid #ef4444; color: #ef4444; display: none; }
+    .btn-icon:hover { background-color: #ef4444; color: white; }
+
+    /* Active Indicator */
+    .ducking-indicator {
+      display: none; align-items: center; justify-content: center; gap: 6px;
+      background-color: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.2); color: #f59e0b;
+      padding: 8px; border-radius: 6px; font-size: 12px; font-weight: 600; margin-bottom: 16px;
+    }
+    .pulse { width: 6px; height: 6px; background-color: #f59e0b; border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.5); } 100% { opacity: 1; transform: scale(1); } }
+
+    /* Toast Status */
+    .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #1e293b; border: 1px solid #334155; padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 500; opacity: 0; pointer-events: none; transition: opacity 0.2s; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+    .toast.show { opacity: 1; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#3b82f6;"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg> DuckyTabs</h1>
+    <div class="status-dot" id="headerDot"></div>
+  </div>
+
+  <div class="content">
+    <div class="ducking-indicator" id="duckingIndicator">
+      <div class="pulse"></div> Ducking Active
+    </div>
+
+    <div class="card">
+      <div class="toggle-row">
+        <label>Enable Auto-Ducking</label>
+        <label class="switch">
+          <input type="checkbox" id="toggleSwitch" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="slider-row">
+        <div class="slider-header">
+          <span>Ducked Volume</span>
+          <span class="value" id="duckVal">20%</span>
+        </div>
+        <input type="range" id="duckVol" min="0" max="100" value="20">
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="tab-info-header">Target Music Tab</div>
+      <div class="tab-title empty" id="tabTitle">No tab selected</div>
+      
+      <div class="btn-group">
+        <button class="btn-primary" id="setMusicTab">Bind Current Tab</button>
+        <button class="btn-icon" id="clearMusicTab" title="Unbind Tab">✕</button>
+      </div>
+    </div>
+
+    <button class="btn-secondary" id="testDuck" style="width: 100%; display: none;">Preview Duck Effect</button>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
