@@ -25,48 +25,6 @@ DuckyTabs automatically lowers your background music volume when you play learni
 - **🧪 Test Mode**: Preview the duck effect before committing
 - **🌙 Beautiful UI**: Modern, gradient-rich interface that's a pleasure to use
 
-## 📦 Installation
-
-### Option 1: Load as Unpacked Extension
-
-1. **Download or clone this repository**
-   ```bash
-   git clone https://github.com/yourusername/duckytabs.git
-   cd duckytabs
-   ```
-
-2. **Open Chrome Extensions page**
-   - Go to `chrome://extensions/`
-   - Or click the puzzle icon → "Manage Extensions"
-
-3. **Enable Developer Mode**
-   - Toggle the "Developer mode" switch in the top-right corner
-
-4. **Load the extension**
-   - Click "Load unpacked"
-   - Select the `duckytabs` folder
-   - You should see the DuckyTabs extension appear!
-
-### Option 2: Package as .crx (For Distribution)
-
-Coming soon to the Chrome Web Store!
-
-## 🚀 How to Use
-
-### Initial Setup
-
-1. **Open your music tab**
-   - Start playing music in any tab (YouTube, Spotify Web, SoundCloud, etc.)
-
-2. **Set it as your music tab**
-   - Click the DuckyTabs extension icon
-   - Click "Set Current Tab as Music"
-   - You'll see confirmation: "✅ Music tab set!"
-
-3. **Adjust your preferences**
-   - **Ducked Volume**: How loud music plays when learning (default: 20%)
-   - **Normal Volume**: How loud music plays normally (default: 100%)
-
 ### Daily Usage
 
 Once set up, DuckyTabs works automatically:
