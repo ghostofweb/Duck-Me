@@ -5,7 +5,7 @@ Since this extension is not on the Chrome Web Store, you can install it manually
 1. **Download the code:** Click the green **"Code"** button at the top of this repository and select **"Download ZIP"**.
 3. **Open Extensions:** In your browser, go to the address bar and type `chrome://extensions/` (or `edge://extensions/` for Edge) and hit Enter.
 4. **Enable Developer Mode:** Toggle the **"Developer mode"** switch in the top right corner.
-5. **Load the Extension:** Click the **"Load unpacked"** button in the top left. Select the Zip fi you downloaded, .
+5. **Load the Extension:** Click the **"Load unpacked"** button in the top left. Select the Zip file you downloaded, .
 
 That's it! Pin the extension to your toolbar and start taking sticky notes.
 
