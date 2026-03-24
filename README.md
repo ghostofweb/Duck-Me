@@ -9,7 +9,7 @@ Since this extension is not on the Chrome Web Store, you can install it manually
 
 That's it! Pin the extension to your toolbar and start taking sticky notes.
 
-# 🦆 DuckyTabs
+# 🦆 Duck Me
 
 **Smart audio ducking for focused learning**
 
